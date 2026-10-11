@@ -1,7 +1,12 @@
+import { Inter } from "next/font/google";
+import Image from "next/image";
+
+const inter = Inter({ subsets: ["latin"] });
+
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
+      <div className={`z-10 max-w-5xl w-full items-center justify-between text-sm ${inter.className}`}>
         <h1 className="text-4xl font-bold text-center mb-8">
           Font and Image Optimization Demo
         </h1>
@@ -11,10 +16,11 @@ export default function Home() {
             Optimized Fonts and Images Example
           </h2>
           
-          {/* TODO: Оптимизируйте шрифты и изображение */}
-          <img
+          <Image
             src="/images/nextjs01.webp"
             alt="Font Example"
+            width={800}
+            height={400}
             className="w-full h-64 object-cover rounded"
           />
           
