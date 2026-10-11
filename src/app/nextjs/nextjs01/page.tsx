@@ -16,10 +16,11 @@ export default function Home() {
             Optimized Image Example
           </h2>
           
-          {/* Заменяем обычный img на next/image */}
-          <img
+          <Image
             src="/images/nextjs01.webp"
             alt="Example"
+            width={800}
+            height={400}
             className="w-full h-64 object-cover rounded"
           />
           
