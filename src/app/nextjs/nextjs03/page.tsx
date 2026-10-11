@@ -9,7 +9,6 @@ export default function Home() {
         </h1>
         
         <div className="space-y-8">
-          {/* TODO: Добавьте lazy loading для изображений */}
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold mb-4">
               Image Gallery
@@ -23,7 +22,7 @@ export default function Home() {
                   width={400}
                   height={300}
                   className="w-full h-48 object-cover rounded"
-                  loading="eager"
+                  loading="lazy"
                 />
                 <p className="text-sm text-gray-600 mt-2">Image 1</p>
               </div>
@@ -35,7 +34,7 @@ export default function Home() {
                   width={400}
                   height={300}
                   className="w-full h-48 object-cover rounded"
-                  loading="eager"
+                  loading="lazy"
                 />
                 <p className="text-sm text-gray-600 mt-2">Image 2</p>
               </div>
