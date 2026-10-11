@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -12,18 +14,17 @@ export default function Home() {
           </h2>
           
           <div className="space-y-4">
-            {/* TODO: Замените теги <a> на компонент Link из next/link */}
-            <a href="/nextjs/nextjs01" className="text-blue-600 hover:underline">
+            <Link href="/nextjs/nextjs01" className="text-blue-600 hover:underline">
               Go to Next.js 01 Task
-            </a>
+            </Link>
             
-            <a href="/nextjs/nextjs02" className="text-blue-600 hover:underline">
+            <Link href="/nextjs/nextjs02" className="text-blue-600 hover:underline">
               Go to Next.js 02 Task
-            </a>
+            </Link>
             
-            <a href="/nextjs/nextjs03" className="text-blue-600 hover:underline">
+            <Link href="/nextjs/nextjs03" className="text-blue-600 hover:underline">
               Go to Next.js 03 Task
-            </a>
+            </Link>
           </div>
           
           <p className="text-gray-600 mt-6">
