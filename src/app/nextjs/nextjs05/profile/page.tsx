@@ -1,13 +1,6 @@
-import DashboardNav from '../DashboardNav';
-
 export default function DashboardProfile() {
   return (
     <div>
-      {/* TODO: Перенесите эту навигацию в общий layout */}
-      <div className="mb-8">
-        <DashboardNav />
-      </div>
-      
       <div className="bg-white overflow-hidden shadow rounded-lg">
         <div className="px-4 py-5 sm:p-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
