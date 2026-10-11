@@ -11,7 +11,6 @@ export default function Home() {
             Understanding Route Segments
           </h2>
           
-          {/* TODO: Создайте правильную структуру папок для route segment */}
           <p className="text-gray-600">
             This page should be accessible at /demo path, not in the root
           </p>
