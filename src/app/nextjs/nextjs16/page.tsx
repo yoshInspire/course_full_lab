@@ -1,17 +1,10 @@
-import { fetchRevenue, fetchStats } from "./data";
+import { Suspense } from "react";
+import { fetchStats } from "./data";
 import Header from "./Header";
 import Stats from "./Stats";
-import RevenueChart from "./RevenueChart";
-
-// ЗАДАНИЕ: Все данные загружаются на уровне страницы
-// Пользователь видит пустую страницу пока не загрузятся ВСЕ данные
-// TODO: Перенести fetchRevenue() в компонент RevenueChart
-// TODO: Обернуть RevenueChart в Suspense с skeleton fallback
-// TODO: Убрать проп data из RevenueChart
+import RevenueChart, { RevenueChartSkeleton } from "./RevenueChart";
 
 export default async function DashboardPage() {
-  // Параллельная загрузка данных на уровне страницы
-  const revenueData = await fetchRevenue();
   const statsData = await fetchStats();
 
   return (
@@ -19,7 +12,9 @@ export default async function DashboardPage() {
       <div className="max-w-4xl mx-auto">
         <Header />
         <Stats data={statsData} />
-        <RevenueChart data={revenueData} />
+        <Suspense fallback={<RevenueChartSkeleton />}>
+          <RevenueChart />
+        </Suspense>
       </div>
     </main>
   );

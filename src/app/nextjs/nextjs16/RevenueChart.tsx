@@ -1,10 +1,19 @@
-import type { RevenueData } from "./data";
+import { fetchRevenue } from "./data";
 
-type RevenueChartProps = {
-  data: RevenueData[];
-};
+export function RevenueChartSkeleton() {
+  return (
+    <div
+      data-testid="revenue-skeleton"
+      className="bg-white p-6 rounded-lg shadow border border-gray-200 animate-pulse"
+    >
+      <div className="h-6 w-40 bg-gray-200 rounded mb-4" />
+      <div className="h-64 bg-gray-100 rounded" />
+    </div>
+  );
+}
 
-export default function RevenueChart({ data }: RevenueChartProps) {
+export default async function RevenueChart() {
+  const data = await fetchRevenue();
   const maxRevenue = Math.max(...data.map((d) => d.revenue));
 
   return (
