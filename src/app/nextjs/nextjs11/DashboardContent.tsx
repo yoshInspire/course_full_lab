@@ -1,16 +1,31 @@
-import { getUsers } from "./data";
-import { getTasks } from "./data";
+"use client";
 
-// TODO: Добавьте loading state используя useState и useEffect
+import { useEffect, useState } from "react";
+import { getUsers, getTasks, type User, type Task } from "./data";
 
 export default function DashboardContent() {
-  // Данные загружаются, но loading state не показывается
-  const users = ["User 1", "User 2", "User 3"];
-  const tasks = [
-    { id: 1, title: "Task 1", status: "Pending" },
-    { id: 2, title: "Task 2", status: "In Progress" },
-    { id: 3, title: "Task 3", status: "Completed" },
-  ];
+  const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState<User[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  useEffect(() => {
+    const load = async () => {
+      const [usersData, tasksData] = await Promise.all([getUsers(), getTasks()]);
+      setUsers(usersData);
+      setTasks(tasksData);
+      setLoading(false);
+    };
+    void load();
+  }, []);
+
+  if (loading) {
+    return (
+      <div data-testid="loading-skeleton" className="space-y-4 animate-pulse">
+        <div className="h-40 bg-gray-200 rounded-lg" />
+        <div className="h-40 bg-gray-200 rounded-lg" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
@@ -18,9 +33,9 @@ export default function DashboardContent() {
         <h2 className="text-2xl font-semibold mb-4">User List</h2>
 
         <ul className="space-y-2">
-          {users.map((user, index) => (
-            <li key={index} className="p-3 bg-gray-50 rounded">
-              {user}
+          {users.map((user) => (
+            <li key={user.id} className="p-3 bg-gray-50 rounded">
+              {user.name}
             </li>
           ))}
         </ul>
