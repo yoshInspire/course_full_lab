@@ -1,8 +1,13 @@
-// TODO: Настройте динамический рендеринг для получения актуальных данных
+async function getData() {
+  // на сервере fetch нужен абсолютный адрес
+  const res = await fetch("http://localhost:3000/api/nextjs12", {
+    cache: "no-store",
+  });
+  return (await res.json()) as { message: string; timestamp: string };
+}
 
-function Home() {
-  // TODO: Создайте асинхронную функцию getData() с fetch и { cache: 'no-store' }
-  const data = { message: "Loading...", timestamp: "Loading..." };
+async function Home() {
+  const data = await getData();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
