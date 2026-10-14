@@ -20,7 +20,6 @@ export default async function SearchPaginationPage({ searchParams }: PageProps) 
   // Fallback для некорректных номеров страниц
   const currentPage = rawPage < 1 ? 1 : rawPage > totalPages ? 1 : rawPage;
 
-  // TODO: Передайте оба параметра query и currentPage в функцию getFilteredAndPaginatedItems
   const paginatedItems = getFilteredAndPaginatedItems(
     query,
     currentPage,

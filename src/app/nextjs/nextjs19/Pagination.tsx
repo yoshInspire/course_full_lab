@@ -12,15 +12,13 @@ export default function Pagination({ totalPages }: PaginationProps) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const currentPage = Number(searchParams.get("page")) ?? 1;
+  const currentPage = Number(searchParams.get("page")) || 1;
 
-  // TODO: Создайте функцию createPageURL(pageNumber) используя URLSearchParams
-  // - Создайте новый URLSearchParams из текущих параметров
-  // - Установите параметр "page" в значение pageNumber
-  // - Сохраните параметр "query" если он существует
-  // - Используйте router.replace() для обновления URL
+  // query сохраняется, так как берем текущие параметры
   const createPageURL = (pageNumber: number) => {
-    // Напишите код здесь
+    const params = new URLSearchParams(searchParams);
+    params.set("page", pageNumber.toString());
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (
