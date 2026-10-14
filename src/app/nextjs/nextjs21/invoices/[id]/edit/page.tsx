@@ -17,10 +17,12 @@ export default async function Page({ params }: PageProps) {
     return <div>Invoice not found</div>;
   }
 
+  const updateInvoiceWithId = updateInvoiceAction.bind(null, invoice.id);
+
   return (
     <div>
       <h1>Редактирование инвойса</h1>
-      <form action={updateInvoiceAction}>
+      <form action={updateInvoiceWithId}>
 
         <div>
           <label htmlFor="customer_id">Customer</label>
