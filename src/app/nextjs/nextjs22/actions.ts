@@ -1,7 +1,9 @@
 'use server';
 
+import { revalidatePath } from "next/cache";
+import { deleteInvoice as removeInvoice } from "./data";
+
 export async function deleteInvoice({ id }: { id: string }) {
-  // TODO: Реализовать удаление инвойса
-  // 1. Удалить запись из БД (массива invoices)
-  // 2. Вызвать revalidatePath для обновления UI
+  removeInvoice(id);
+  revalidatePath("/nextjs/nextjs22/invoices");
 }

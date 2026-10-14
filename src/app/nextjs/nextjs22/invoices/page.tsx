@@ -24,6 +24,7 @@ export default function InvoicesPage() {
         <tbody>
           {invoicesList.map((invoice) => {
             const customer = customers.find((c) => c.id === invoice.customer_id);
+            const deleteInvoiceWithId = deleteInvoice.bind(null, { id: invoice.id });
             return (
               <tr key={invoice.id}>
                 <td>{invoice.id}</td>
@@ -32,9 +33,11 @@ export default function InvoicesPage() {
                 <td>{invoice.status}</td>
                 <td>{invoice.date}</td>
                 <td>
-                  <button data-testid={`delete-${invoice.id}`}>
-                    Delete
-                  </button>
+                  <form action={deleteInvoiceWithId}>
+                    <button data-testid={`delete-${invoice.id}`}>
+                      Delete
+                    </button>
+                  </form>
                 </td>
               </tr>
             );
