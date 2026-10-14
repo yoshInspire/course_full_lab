@@ -1,12 +1,16 @@
+'use client';
+
+import { useActionState } from 'react';
 import { createInvoice } from './actions';
 import { customers } from './data';
 
-// TODO: Преобразовать в клиентский компонент и использовать useActionState
 export default function CreateInvoicePage() {
+  const [state, formAction] = useActionState(createInvoice, {});
+
   return (
     <div>
       <h1>Создать инвойс</h1>
-      <form action={createInvoice}>
+      <form action={formAction}>
         <div>
           <label>
             Customer:
@@ -37,7 +41,7 @@ export default function CreateInvoicePage() {
         </div>
         <button type="submit">Create Invoice</button>
       </form>
-      <div data-testid="error-message"></div>
+      <div data-testid="error-message">{state.error}</div>
     </div>
   );
 }
