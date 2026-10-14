@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getInvoiceById, customers } from "../../../data";
 import { updateInvoiceAction } from "../../../actions";
 
@@ -14,7 +15,7 @@ export default async function Page({ params }: PageProps) {
   const invoice = getInvoiceById(id);
 
   if (!invoice) {
-    return <div>Invoice not found</div>;
+    notFound();
   }
 
   return (
