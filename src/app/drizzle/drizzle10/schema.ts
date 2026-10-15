@@ -10,5 +10,5 @@ export function deleteAssignmentById(
   eq: (left: unknown, right: unknown) => unknown,
   id: number,
 ) {
-  // TODO: реализовать delete-запрос
+  return db.delete(assignmentsTable).where(eq(assignmentsTable.id, id));
 }
