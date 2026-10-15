@@ -6,5 +6,5 @@ export const users = pgTable("users", {
 });
 
 export function selectUsers(db: any) {
-  // TO DO
+  return db.select().from(users);
 }
