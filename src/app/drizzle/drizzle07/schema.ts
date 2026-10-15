@@ -6,5 +6,5 @@ export function selectAllStudents(
   },
   studentsTable: unknown,
 ) {
-  // TODO: реализовать select-запрос
+  return db.select().from(studentsTable);
 }
