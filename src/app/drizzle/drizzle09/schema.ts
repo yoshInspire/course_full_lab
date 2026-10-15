@@ -13,5 +13,8 @@ export function updateStudentNameById(
   id: number,
   name: string,
 ) {
-  // TODO: реализовать update-запрос
+  return db
+    .update(studentsTable)
+    .set({ name })
+    .where(eq(studentsTable.id, id));
 }
