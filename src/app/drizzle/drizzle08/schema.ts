@@ -12,5 +12,5 @@ export function selectStudentByEmail(
   eq: (left: unknown, right: unknown) => unknown,
   email: string,
 ) {
-    // TODO: реализовать select-запрос с where
+  return db.select().from(studentsTable).where(eq(studentsTable.email, email));
 }
