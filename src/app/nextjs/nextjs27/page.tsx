@@ -1,19 +1,18 @@
 "use client";
 
-import { createInvoiceAction } from "./actions";
+import { useActionState } from "react";
+import { createInvoiceAction, type InvoiceState } from "./actions";
 
-function handleSubmit(formData: FormData) {
-  // TODO: Добавить useActionState и safeParse для валидации
-  const state = { success: false, message: "", errors: {} };
-  void createInvoiceAction(state, formData);
-}
+const initialState: InvoiceState = {};
 
 export default function Page() {
+  const [state, formAction] = useActionState(createInvoiceAction, initialState);
+
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-6">Создание инвойса</h1>
 
-      <form action={handleSubmit} className="space-y-4 max-w-md">
+      <form action={formAction} className="space-y-4 max-w-md">
         <div>
           <label htmlFor="customer_id" className="block text-sm font-medium">
             Клиент
@@ -28,6 +27,11 @@ export default function Page() {
             <option value="customer_2">Bob Smith</option>
             <option value="customer_3">Carol White</option>
           </select>
+          {state.errors?.customer_id?.map((error) => (
+            <p key={error} className="text-sm text-red-500">
+              {error}
+            </p>
+          ))}
         </div>
 
         <div>
@@ -40,6 +44,11 @@ export default function Page() {
             name="amount"
             className="mt-1 block w-full border rounded p-2"
           />
+          {state.errors?.amount?.map((error) => (
+            <p key={error} className="text-sm text-red-500">
+              {error}
+            </p>
+          ))}
         </div>
 
         <div>
@@ -56,6 +65,11 @@ export default function Page() {
             <option value="paid">paid</option>
             <option value="void">void</option>
           </select>
+          {state.errors?.status?.map((error) => (
+            <p key={error} className="text-sm text-red-500">
+              {error}
+            </p>
+          ))}
         </div>
 
         <button
@@ -64,6 +78,8 @@ export default function Page() {
         >
           Создать
         </button>
+
+        {state.success && <p className="text-green-600">{state.message}</p>}
       </form>
     </div>
   );

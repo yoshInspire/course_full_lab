@@ -23,16 +23,23 @@ export async function createInvoiceAction(
   prevState: InvoiceState,
   formData: FormData
 ): Promise<InvoiceState> {
-  const validatedFields = InvoiceSchema.parse({
+  const validatedFields = InvoiceSchema.safeParse({
     customer_id: formData.get("customer_id"),
     amount: formData.get("amount"),
     status: formData.get("status"),
   });
 
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Ошибка валидации",
+    };
+  }
+
   createInvoice({
-    customer_id: validatedFields.customer_id,
-    amount: validatedFields.amount,
-    status: validatedFields.status,
+    customer_id: validatedFields.data.customer_id,
+    amount: validatedFields.data.amount,
+    status: validatedFields.data.status,
   });
 
   return {
