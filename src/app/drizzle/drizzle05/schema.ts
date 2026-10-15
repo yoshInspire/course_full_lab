@@ -6,5 +6,5 @@ export const users = pgTable("users", {
 });
 
 export function insertUser(db: any, data: { email: string }) {
-  // TO DO
+  return db.insert(users).values(data).returning();
 }
