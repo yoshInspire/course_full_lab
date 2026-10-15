@@ -12,5 +12,5 @@ export function insertStudent(
   studentsTable: unknown,
   data: StudentInsert,
 ) {
-  // TODO: реализовать insert-запрос
+  return db.insert(studentsTable).values(data);
 }
