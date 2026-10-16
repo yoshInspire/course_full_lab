@@ -11,5 +11,5 @@ export function selectAssignmentsOrderedByMaxScore(
   },
   desc: (column: unknown) => unknown,
 ) {
-// TODO: реализовать select с сортировкой
+  return db.select().from(assignmentsTable).orderBy(desc(assignmentsTable.maxScore));
 }
