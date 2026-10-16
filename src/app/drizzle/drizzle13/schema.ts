@@ -12,5 +12,5 @@ export function selectStudentsPage(
   limitValue: number,
   offsetValue: number,
 ) {
-    // TODO: реализовать select с limit и offset
+  return db.select().from(studentsTable).limit(limitValue).offset(offsetValue);
 }
