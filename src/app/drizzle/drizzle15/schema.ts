@@ -7,5 +7,5 @@ export function countStudents(
   studentsTable: unknown,
   count: (arg: unknown) => unknown,
 ) {
-  // TODO: реализовать агрегатный select
+  return db.select({ count: count(studentsTable) }).from(studentsTable);
 }
