@@ -9,5 +9,7 @@ export function selectStudentEmails(
     email: unknown;
   },
 ) {
-  // TODO: реализовать select с ограничением полей
+  return db
+    .select({ id: studentsTable.id, email: studentsTable.email })
+    .from(studentsTable);
 }
