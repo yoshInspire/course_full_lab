@@ -13,5 +13,12 @@ export function deleteGradeByStudentAndAssignment(
   studentId: number,
   assignmentId: number,
 ) {
-  // TODO: реализовать delete-запрос с составным where
+  return db
+    .delete(gradesTable)
+    .where(
+      and(
+        eq(gradesTable.studentId, studentId),
+        eq(gradesTable.assignmentId, assignmentId),
+      ),
+    );
 }
