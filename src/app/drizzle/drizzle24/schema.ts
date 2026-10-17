@@ -9,5 +9,8 @@ export function createGradeWithCounterUpdate(
   gradeData: unknown,
   counterData: unknown,
 ) {
-  // TODO: реализовать транзакцию с двумя запросами
+  return db.transaction((tx) => {
+    insertGrade(tx, gradeData);
+    updateStudentCounter(tx, counterData);
+  });
 }
