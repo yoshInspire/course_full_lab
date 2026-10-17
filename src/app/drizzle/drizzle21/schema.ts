@@ -21,5 +21,9 @@ export function countGradesByStudent(
   count: (arg: unknown) => unknown,
   studentId: number,
 ) {
-  // TODO: реализовать select с join и count
+  return db
+    .select({ count: count(gradesTable) })
+    .from(studentsTable)
+    .innerJoin(gradesTable, eq(studentsTable.id, gradesTable.studentId))
+    .where(eq(studentsTable.id, studentId));
 }
