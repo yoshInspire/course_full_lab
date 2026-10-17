@@ -19,5 +19,8 @@ export function selectStudentEmailAndGrade(
   },
   eq: (left: unknown, right: unknown) => unknown,
 ) {
-  // TODO: реализовать select с join и projection
+  return db
+    .select({ email: studentsTable.email, score: gradesTable.score })
+    .from(gradesTable)
+    .innerJoin(studentsTable, eq(gradesTable.studentId, studentsTable.id));
 }
