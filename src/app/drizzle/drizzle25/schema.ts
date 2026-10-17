@@ -9,5 +9,9 @@ export function createGradeWithRollback(
   firstData: unknown,
   secondData: unknown,
 ) {
-  // TODO: реализовать транзакцию с rollback при ошибке
+  // ошибка второй операции не перехватывается и откатывает транзакцию
+  return db.transaction((tx) => {
+    firstOperation(tx, firstData);
+    return secondOperation(tx, secondData);
+  });
 }
