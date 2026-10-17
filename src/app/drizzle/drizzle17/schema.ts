@@ -17,5 +17,8 @@ export function selectAssignmentsWithGrades(
   },
   eq: (left: unknown, right: unknown) => unknown,
 ) {
-  // TODO: реализовать select с leftJoin
+  return db
+    .select()
+    .from(assignmentsTable)
+    .leftJoin(gradesTable, eq(assignmentsTable.id, gradesTable.assignmentId));
 }
