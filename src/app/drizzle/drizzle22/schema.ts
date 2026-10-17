@@ -20,5 +20,9 @@ export function countGradesByAssignment(
   eq: (left: unknown, right: unknown) => unknown,
   count: (arg: unknown) => unknown,
 ) {
- // TODO: реализовать select с join, count и groupBy
+  return db
+    .select({ assignmentId: assignmentsTable.id, count: count(gradesTable) })
+    .from(assignmentsTable)
+    .innerJoin(gradesTable, eq(assignmentsTable.id, gradesTable.assignmentId))
+    .groupBy(assignmentsTable.id);
 }
