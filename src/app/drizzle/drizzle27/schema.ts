@@ -1,3 +1,6 @@
+let db: unknown;
+
 export function getDb(createDb: () => unknown) {
-  // TODO: реализовать singleton
+  db ??= createDb();
+  return db;
 }
