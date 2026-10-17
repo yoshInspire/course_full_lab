@@ -29,5 +29,10 @@ export function selectAssignmentsByStudent(
   eq: (left: unknown, right: unknown) => unknown,
   studentId: number,
 ) {
-  // TODO: реализовать select с двумя join и where
+  return db
+    .select()
+    .from(studentsTable)
+    .innerJoin(gradesTable, eq(studentsTable.id, gradesTable.studentId))
+    .innerJoin(assignmentsTable, eq(gradesTable.assignmentId, assignmentsTable.id))
+    .where(eq(studentsTable.id, studentId));
 }
