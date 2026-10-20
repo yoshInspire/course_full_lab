@@ -6,7 +6,7 @@ export function getStudents(): { name: string }[] {
 }
 
 export function getStudentsNames(
-  loadStudents: () => { name: string }[],
+  loadStudents: () => { name: string }[] = getStudents,
 ) {
-  // TODO: реализовать повторное использование
+  return loadStudents().map((student) => student.name);
 }
