@@ -3,5 +3,5 @@ export function studentsCountFlow(
   dataAccess: (db: unknown) => unknown,
   db: unknown,
 ) {
-  // TODO: реализовать полный data-flow
+  return serverAction(() => dataAccess(db));
 }
