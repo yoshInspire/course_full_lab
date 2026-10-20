@@ -1,5 +1,9 @@
 export async function safeLoadStudents(
   load: () => Promise<unknown>,
 ) {
-  // TODO: реализовать обработку ошибки
+  try {
+    return await load();
+  } catch {
+    throw new Error("Database error");
+  }
 }
