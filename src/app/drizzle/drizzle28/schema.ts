@@ -6,5 +6,5 @@ export function getStudentsLimited(
   },
   limit: number,
 ) {
-  // TODO: реализовать data-access функцию с limit
+  return db.select().limit(limit);
 }
