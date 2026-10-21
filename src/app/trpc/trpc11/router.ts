@@ -1,7 +1,14 @@
 import { router, publicProcedure } from "../_core/trpc";
 
-// TODO:
-// 1. Создайте appRouter
-// 2. Добавьте query "getVersion"
-// 3. Используйте ctx.dataAccess.getVersion()
-// 4. Верните { version }
+type VersionAccess = {
+  getVersion: () => string | Promise<string>;
+};
+
+export const appRouter = router({
+  getVersion: publicProcedure.query(async ({ ctx }) => {
+    const version = await (ctx.dataAccess as VersionAccess).getVersion();
+    return { version };
+  }),
+});
+
+export type AppRouter = typeof appRouter;
