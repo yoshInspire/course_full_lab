@@ -1,7 +1,15 @@
 import { router, publicProcedure } from "../_core/trpc";
 import { TRPCError } from "@trpc/server";
 
-// TODO:
-// 1. Создайте protectedProcedure
-// 2. Добавьте query "me"
-// 3. Возвращайте userId из context
+const protectedProcedure = publicProcedure.use(({ ctx, next }) => {
+  if (!ctx.user) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  return next({ ctx: { user: ctx.user } });
+});
+
+export const appRouter = router({
+  me: protectedProcedure.query(({ ctx }) => ({ userId: ctx.user.id })),
+});
+
+export type AppRouter = typeof appRouter;
