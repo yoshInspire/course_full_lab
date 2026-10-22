@@ -1,14 +1,13 @@
 import { router, publicProcedure, middleware } from '../_core/trpc'
 
 export const timingMiddleware = middleware(async ({ ctx, next }) => {
-  // TODO:
-  // 1. Зафиксировать start time
-  // 2. Выполнить next()
-  // 3. Вычислить duration
-  // 4. Вызвать ctx.logger?.info(...)
-  // 5. Вернуть result
+  const start = Date.now()
+  const result = await next()
+  const duration = Date.now() - start
 
-  return next()
+  ctx.logger?.info(`Procedure executed in ${duration}ms`)
+
+  return result
 })
 
 export const appRouter = router({
