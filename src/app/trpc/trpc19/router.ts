@@ -7,13 +7,9 @@ import { router } from "../_core/trpc";
 const userRouter = router({});
 const postRouter = router({});
 
-/**
- * TODO:
- * Объедините userRouter и postRouter
- * в единый appRouter.
- */
 export const appRouter = router({
-  // TODO
+  user: userRouter,
+  post: postRouter,
 });
 
 export type AppRouter = typeof appRouter;
