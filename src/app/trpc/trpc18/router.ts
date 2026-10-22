@@ -8,13 +8,13 @@ import { TRPCError } from "@trpc/server";
  */
 const userRouter = router({});
 
-/**
- * TODO:
- * Реализуйте postRouter:
- * - createPost (mutation)
- * - getPostById (query)
- * - NOT_FOUND при отсутствии поста
- */
+type Post = { id: string; title: string };
+
+type PostAccess = {
+  createPost: (title: string) => string | Promise<string>;
+  getPostById: (id: string) => Post | null | Promise<Post | null>;
+};
+
 const postRouter = router({
   createPost: publicProcedure
     .input(
@@ -22,8 +22,9 @@ const postRouter = router({
         title: z.string().min(1),
       })
     )
-    .mutation(({ input, ctx }) => {
-      // TODO
+    .mutation(async ({ input, ctx }) => {
+      const id = await (ctx.dataAccess as PostAccess).createPost(input.title);
+      return { id };
     }),
 
   getPostById: publicProcedure
@@ -32,8 +33,12 @@ const postRouter = router({
         id: z.string().min(1),
       })
     )
-    .query(({ input, ctx }) => {
-      // TODO
+    .query(async ({ input, ctx }) => {
+      const post = await (ctx.dataAccess as PostAccess).getPostById(input.id);
+      if (!post) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Post not found" });
+      }
+      return post;
     }),
 });
 
