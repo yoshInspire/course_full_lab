@@ -1,17 +1,13 @@
 import { router, publicProcedure } from "../_core/trpc";
 
-/**
- * TODO:
- * Реализуйте query "health".
- *
- * Необходимо:
- * 1. Вызвать ctx.dataAccess.getVersion()
- * 2. Вернуть:
- *    { status: "ok", version }
- */
+type VersionAccess = {
+  getVersion: () => string | Promise<string>;
+};
+
 export const appRouter = router({
-  health: publicProcedure.query(({ ctx }) => {
-    // TODO
+  health: publicProcedure.query(async ({ ctx }) => {
+    const version = await (ctx.dataAccess as VersionAccess).getVersion();
+    return { status: "ok" as const, version };
   }),
 });
 
