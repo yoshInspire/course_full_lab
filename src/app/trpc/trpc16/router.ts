@@ -2,20 +2,12 @@ import { router, publicProcedure } from "../_core/trpc";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 
-/**
- * TODO:
- * Реализуйте getUserById.
- *
- * Необходимо:
- *
- * 1. Процедура принимает { id: string }
- * 2. Вызывает ctx.dataAccess.getUserById(id)
- * 3. Если пользователь найден — вернуть его
- * 4. Если пользователь не найден — выбросить:
- *    TRPCError({ code: "NOT_FOUND" })
- *
- * Валидация input обязательна.
- */
+type User = { id: string; name: string };
+
+type UserAccess = {
+  getUserById: (id: string) => User | null | Promise<User | null>;
+};
+
 export const appRouter = router({
   getUserById: publicProcedure
     .input(
@@ -23,8 +15,12 @@ export const appRouter = router({
         id: z.string().min(1),
       })
     )
-    .query(({ input, ctx }) => {
-      // TODO
+    .query(async ({ input, ctx }) => {
+      const user = await (ctx.dataAccess as UserAccess).getUserById(input.id);
+      if (!user) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+      }
+      return user;
     }),
 });
 
