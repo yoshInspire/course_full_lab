@@ -3,10 +3,14 @@ import { router, publicProcedure } from '../_core/trpc'
 
 export const appRouter = router({
   getRequestId: publicProcedure.query(({ ctx }) => {
-    // TODO: вернуть ctx.requestId
-    // если отсутствует — выбросить TRPCError с code INTERNAL_SERVER_ERROR
+    if (!ctx.requestId) {
+      throw new TRPCError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'requestId is missing',
+      })
+    }
 
-    throw new Error('Not implemented')
+    return ctx.requestId
   }),
 })
 
