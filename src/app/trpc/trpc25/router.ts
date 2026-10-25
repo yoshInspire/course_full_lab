@@ -4,10 +4,9 @@ import { TRPCError } from '@trpc/server'
 
 export const adminProcedure = protectedProcedure.use(
   async ({ ctx, next }) => {
-    // TODO:
-    // если ctx.user?.role !== 'ADMIN'
-    // выбросить TRPCError({ code: 'UNAUTHORIZED' })
-    // иначе вернуть next()
+    if (ctx.user?.role !== 'ADMIN') {
+      throw new TRPCError({ code: 'UNAUTHORIZED' })
+    }
 
     return next()
   }
