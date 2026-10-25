@@ -18,16 +18,18 @@ export const appRouter = router({
       throw new Error('Invalid input')
     })
     .query(({ input }) => {
-      // TODO:
-      // 1. Если input.id !== '1'
-      //    выбросить EntityNotFoundError('Item')
-      //
-      // 2. Перехватить эту ошибку
-      //    и заменить её на createNotFoundError('Item')
-      //
-      // 3. Если id === '1' — вернуть 'item-1'
+      try {
+        if (input.id !== '1') {
+          throw new EntityNotFoundError('Item')
+        }
 
-      return 'not implemented'
+        return 'item-1'
+      } catch (error) {
+        if (error instanceof EntityNotFoundError) {
+          throw createNotFoundError('Item')
+        }
+        throw error
+      }
     }),
 })
 
