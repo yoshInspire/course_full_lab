@@ -1,13 +1,13 @@
 import { router, publicProcedure, middleware } from '../_core/trpc'
 
 export const auditMiddleware = middleware(async ({ ctx, path, next }) => {
-  // TODO:
-  // 1. Выполнить next()
-  // 2. Если ctx.auditService существует —
-  //    вызвать ctx.auditService.record(...)
-  // 3. Вернуть результат
+  const result = await next()
 
-  return next()
+  if (result.ok) {
+    ctx.auditService?.record({ path, result: result.data })
+  }
+
+  return result
 })
 
 export const appRouter = router({
