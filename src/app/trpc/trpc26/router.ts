@@ -15,12 +15,11 @@ export const appRouter = router({
       throw new Error('Invalid input')
     })
     .query(({ input }) => {
-      // TODO:
-      // если input.id !== '1'
-      // выбросить createNotFoundError('Item')
-      // иначе вернуть 'item-1'
+      if (input.id !== '1') {
+        throw createNotFoundError('Item')
+      }
 
-      return 'not implemented'
+      return 'item-1'
     }),
 })
 
