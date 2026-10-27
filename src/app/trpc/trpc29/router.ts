@@ -1,21 +1,23 @@
 import { router, publicProcedure, middleware } from '../_core/trpc'
 
 export const prefixMiddleware = middleware(async (opts) => {
-  // TODO:
-  // 1. выполнить opts.next()
-  // 2. изменить result.data → "prefix-" + result.data
-  // 3. вернуть result
+  const result = await opts.next()
 
-  return opts.next()
+  if (!result.ok) {
+    return result
+  }
+
+  return { ...result, data: `prefix-${String(result.data)}` }
 })
 
 export const suffixMiddleware = middleware(async (opts) => {
-  // TODO:
-  // 1. выполнить opts.next()
-  // 2. изменить result.data → result.data + "-suffix"
-  // 3. вернуть result
+  const result = await opts.next()
 
-  return opts.next()
+  if (!result.ok) {
+    return result
+  }
+
+  return { ...result, data: `${String(result.data)}-suffix` }
 })
 
 export const appRouter = router({
