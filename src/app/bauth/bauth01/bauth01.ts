@@ -5,5 +5,5 @@ export type AuthConfig = {
 };
 
 export function createAuthService(config: AuthConfig) {
-  // TODO: инициализировать Better Auth
+  return betterAuth(config);
 }
