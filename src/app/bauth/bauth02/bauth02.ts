@@ -12,5 +12,8 @@ export function createAuthService(
   config: AuthConfig,
   db: Database
 ) {
-  // TODO: инициализировать Better Auth с использованием db
+  return betterAuth({
+    ...config,
+    database: db,
+  });
 }
