@@ -31,5 +31,10 @@ export async function runAuthLifecycle(
   password: string,
   request: unknown
 ) {
-  // TODO: реализовать полный lifecycle
+  const user = await authService.register({ email, password });
+  const loginResult = await authService.login({ email, password });
+  const session = await authService.getSession(request);
+  await authService.invalidateSession(loginResult.session.id);
+
+  return { user, loginResult, session };
 }
