@@ -19,5 +19,5 @@ export async function loginUser(
   email: string,
   password: string
 ) {
-  // TODO: вызвать login через authService
+  return authService.login({ email, password });
 }
