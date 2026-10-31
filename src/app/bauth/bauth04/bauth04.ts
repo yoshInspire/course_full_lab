@@ -10,5 +10,5 @@ export async function registerUser(
   email: string,
   password: string
 ) {
-  // TODO: вызвать регистрацию через authService
+  return authService.register({ email, password });
 }
