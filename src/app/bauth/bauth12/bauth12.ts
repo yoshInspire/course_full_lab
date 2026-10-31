@@ -8,5 +8,5 @@ export type Context = {
 };
 
 export function currentUser(ctx: Context) {
-  // TODO: вернуть текущего пользователя
+  return ctx.user;
 }
