@@ -6,6 +6,6 @@ export type SessionCookieConfig = {
 export function createSessionCookieConfig(): SessionCookieConfig {
   return {
     name: 'session',
-    httpOnly: false, // TODO: настроить корректно
+    httpOnly: true,
   }
 }
