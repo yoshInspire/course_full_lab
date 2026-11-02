@@ -41,5 +41,5 @@ export async function deleteUser<T>(
   ctx: Context,
   handler: () => Promise<T>
 ): Promise<T> {
-  // TODO: использовать adminProcedure
+  return adminProcedure(ctx, handler);
 }
