@@ -12,6 +12,6 @@ export function createSessionCookieConfig(
   return {
     name: 'session',
     httpOnly: true,
-    secure: false, // TODO: настроить корректно
+    secure: env === 'production',
   }
 }
