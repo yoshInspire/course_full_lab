@@ -26,5 +26,13 @@ export async function adminProcedure<T>(
   ctx: Context,
   handler: () => Promise<T>
 ): Promise<T> {
-  // TODO: реализовать RBAC
+  if (!ctx.user) {
+    throw new UnauthorizedError();
+  }
+
+  if (ctx.user.role !== "ADMIN") {
+    throw new ForbiddenError();
+  }
+
+  return handler();
 }
