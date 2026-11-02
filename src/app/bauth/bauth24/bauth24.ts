@@ -12,6 +12,6 @@ export function createSession(
 
   return {
     userId,
-    expiresAt: now, // TODO: вычислить корректное абсолютное expiration
+    expiresAt: now + ttlMs,
   }
 }
