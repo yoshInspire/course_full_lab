@@ -27,7 +27,11 @@ async function ownershipCheck<T>(
   targetUserId: string,
   operation: () => Promise<T>
 ): Promise<T> {
-  // TODO: реализовать ownership
+  if (currentUserId !== targetUserId) {
+    throw new ForbiddenError();
+  }
+
+  return operation();
 }
 
 export async function updateUser<T>(
@@ -35,5 +39,13 @@ export async function updateUser<T>(
   targetUserId: string,
   operation: () => Promise<T>
 ): Promise<T> {
-  // TODO: реализовать полный защищённый flow
+  if (!ctx.user) {
+    throw new UnauthorizedError();
+  }
+
+  if (ctx.user.role !== "ADMIN") {
+    throw new ForbiddenError();
+  }
+
+  return ownershipCheck(ctx.user.id, targetUserId, operation);
 }
