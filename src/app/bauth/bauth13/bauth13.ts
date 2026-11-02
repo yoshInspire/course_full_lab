@@ -1,8 +1,7 @@
-// TODO: объявить тип Role
+export type Role = "USER" | "ADMIN";
 
 export type User = {
   id: string;
   email: string;
-
-  // TODO: добавить role
+  role: Role;
 };
