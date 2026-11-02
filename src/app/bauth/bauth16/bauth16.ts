@@ -24,5 +24,13 @@ export async function updateProfile<T>(
   ownerId: string,
   handler: () => Promise<T>
 ): Promise<T> {
-  // TODO: реализовать ownership check
+  if (!ctx.user) {
+    throw new UnauthorizedError();
+  }
+
+  if (ctx.user.id !== ownerId) {
+    throw new ForbiddenError();
+  }
+
+  return handler();
 }
