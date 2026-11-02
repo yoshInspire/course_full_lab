@@ -14,5 +14,13 @@ export function checkAccess(
   userId: string | null,
   hasPermission: boolean
 ): true {
-  // TODO: реализовать корректную семантику ошибок
+  if (!userId) {
+    throw new UnauthorizedError();
+  }
+
+  if (!hasPermission) {
+    throw new ForbiddenError();
+  }
+
+  return true;
 }
