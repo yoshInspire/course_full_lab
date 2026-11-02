@@ -16,6 +16,6 @@ export function createSessionCookieConfig(
     name: 'session',
     httpOnly: true,
     secure: env === 'production',
-    sameSite: 'strict', // TODO: настроить корректно
+    sameSite: env === 'production' ? 'lax' : 'strict',
   }
 }
