@@ -12,6 +12,6 @@ export function refreshSession(
 
   return {
     ...session,
-    expiresAt: session.expiresAt, // TODO: реализовать sliding expiration
+    expiresAt: now + ttlMs,
   }
 }
