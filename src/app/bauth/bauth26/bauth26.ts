@@ -10,6 +10,6 @@ export function rotateSession(
 ): Session {
   return {
     ...session,
-    id: session.id, // TODO: сгенерировать новый id
+    id: generateId(),
   }
 }
