@@ -7,6 +7,9 @@ export function uiGuard(
   user: User | null,
   content: string
 ): string | null {
-  // TODO: реализовать UI-level защиту
+  if (!user) {
+    return null
+  }
+
   return content
 }
