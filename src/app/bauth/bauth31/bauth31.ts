@@ -10,6 +10,9 @@ export type Context = {
 }
 
 export function currentUserQuery(ctx: Context): User {
-  // TODO: реализовать корректную проверку
-  return ctx.user as User
+  if (!ctx.user) {
+    throw new UnauthorizedError('UNAUTHORIZED')
+  }
+
+  return ctx.user
 }
