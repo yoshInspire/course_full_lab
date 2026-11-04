@@ -4,6 +4,13 @@ export function validateCsrf(
   sessionToken: string | null,
   requestToken: string | null
 ): true {
-  // TODO: реализовать проверку CSRF
+  if (!sessionToken || !requestToken) {
+    throw new CsrfError('CSRF token is missing')
+  }
+
+  if (sessionToken !== requestToken) {
+    throw new CsrfError('CSRF token mismatch')
+  }
+
   return true
 }
