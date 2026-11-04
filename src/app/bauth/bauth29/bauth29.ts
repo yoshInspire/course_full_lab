@@ -11,6 +11,9 @@ export function getSessionFromCookie(
   cookie: string | null,
   storage: SessionStorage
 ): Session | null {
-  // TODO: реализовать корректную обработку отсутствующего cookie
-  return null
+  if (!cookie) {
+    return null
+  }
+
+  return storage.find(cookie)
 }
