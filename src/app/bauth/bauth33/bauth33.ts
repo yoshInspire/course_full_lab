@@ -11,6 +11,9 @@ export function layoutGuard(
   user: User | null,
   currentPath: string
 ): LayoutResult {
-  // TODO: реализовать redirect-логику
+  if (!user) {
+    return { redirectTo: '/login' }
+  }
+
   return { allow: true }
 }
