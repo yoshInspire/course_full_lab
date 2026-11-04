@@ -20,10 +20,10 @@ export function createSessionSecurityConfig(
   return {
     cookie: {
       name: 'session',
-      httpOnly: false, // TODO
-      secure: false,   // TODO
-      sameSite: 'strict', // TODO
+      httpOnly: true,
+      secure: env === 'production',
+      sameSite: env === 'production' ? 'lax' : 'strict',
     },
-    expiresAt: now, // TODO
+    expiresAt: now + ttlMs,
   }
 }
