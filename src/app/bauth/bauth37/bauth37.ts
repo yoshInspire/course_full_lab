@@ -16,7 +16,14 @@ export function updateResource(
   resource: Resource,
   data: string
 ): Resource {
-  // TODO: реализовать проверку прав в access-layer
+  if (!user) {
+    throw new UnauthorizedError('UNAUTHORIZED')
+  }
+
+  if (user.id !== resource.ownerId) {
+    throw new ForbiddenError('FORBIDDEN')
+  }
+
   return {
     ...resource,
     data,
