@@ -26,6 +26,13 @@ export function executeUpdateFlow(
     data: string
   ) => Resource
 ): Resource {
-  // TODO: реализовать полный защищённый flow
-  return resource
+  const session = cookie ? storage.find(cookie) : null
+
+  if (!session) {
+    throw new UnauthorizedError('UNAUTHORIZED')
+  }
+
+  const user = { id: session.userId }
+
+  return updateAccess(user.id, resource, newData)
 }
